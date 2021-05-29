@@ -9,7 +9,7 @@ app.use(express.static("public"));
 app.use(logger);
 
 app.get("/", (_req: Request, res: Response) => {
-  res.send("Welcome to Image Processing API");
+  res.status(200).send("Welcome to Image Processing API");
 });
 
 app.use(validateParams);

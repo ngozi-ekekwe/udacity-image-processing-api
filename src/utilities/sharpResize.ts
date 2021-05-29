@@ -12,5 +12,4 @@ export const sharpResize = async (
   resizedimage.toFile(outputfile);
 };
 
-
 export default sharpResize;

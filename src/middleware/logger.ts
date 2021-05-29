@@ -1,8 +1,8 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, Request, NextFunction } from "express";
 
-function logger(req:Request, res: Response, next:NextFunction) {
-  console.log('middlware logger')
-  next()
-};
+function logger(req: Request, res: Response, next: NextFunction): void {
+  console.log("middlware logger");
+  next();
+}
 
 export default logger;

@@ -1,13 +1,13 @@
 import { Response, Request, NextFunction } from "express";
 
-function validateParams(req: Request, res: Response, next: NextFunction) {
+function validateParams(req: Request, res: Response, next: NextFunction): void {
   const { query } = req;
   const requiredParams = ["filename", "height", "width"];
 
   for (let i = 0; i < requiredParams.length; i++) {
     const param = requiredParams[i];
     if (query[param] === undefined) {
-      res.status(400).send("Error: Invalid Parameter..");
+      res.status(400).send("Error: Parameter(s) missing..");
       return;
     }
 
@@ -19,7 +19,7 @@ function validateParams(req: Request, res: Response, next: NextFunction) {
     }
 
     if (param == "height" || param == "width") {
-      let num: number = Number(value);
+      const num = Number(value);
       if (!num) {
         res.status(400).send("height and width should be numbers");
         return;

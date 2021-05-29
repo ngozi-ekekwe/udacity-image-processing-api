@@ -1,5 +1,3 @@
-import resizeImage from './imageProcessing';
+import resizeImage from "./imageProcessing";
 
-export {
-  resizeImage
-}
+export { resizeImage };

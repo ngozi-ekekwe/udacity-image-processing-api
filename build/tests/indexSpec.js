@@ -42,12 +42,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var app_1 = __importDefault(require("../app"));
 var request = supertest_1.default(app_1.default);
-describe('Server API', function () {
-    it('should return a message', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+describe("Server API", function () {
+    it("should return a message", function (done) { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('')];
+                case 0: return [4 /*yield*/, request.get("/")];
                 case 1:
                     response = _a.sent();
                     expect(response.text).toBe("Welcome to Image Processing API");
@@ -56,4 +56,86 @@ describe('Server API', function () {
             }
         });
     }); });
+    it("should should return a status of 200", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+describe("Resize Controller Middleware", function () {
+    it('should return an error is a parameter is missing', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api/images")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.text).toBe('Error: Parameter(s) missing..');
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return an error message if width is not a number', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api/images?filename=danceforme&width=hello&height=400")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.text).toBe('height and width should be numbers');
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return an error message if height is not a number', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api/images?filename=danceforme&width=hello&height=hello")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.text).toBe('height and width should be numbers');
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('should return a status of 400 if an error occured', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api/images?filename=danceforme&width=hello&height=hello")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(400);
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    describe('Resize Controller', function () {
+        it('should resize a full image into the public folder', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/images?filename=danceforme&width=400&height=300")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        done();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
 });

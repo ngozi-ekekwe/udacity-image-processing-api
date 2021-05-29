@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import sharpResize from "../utilities/sharpResize";
 
-const resizeImage = async (req: Request, res: Response) => {
+const resizeImage = async (req: Request, res: Response): Promise<void> => {
   const { filename, height, width } = req.query;
 
   const h: number | null = height ? parseInt(height as string, 10) : null;
@@ -11,14 +11,14 @@ const resizeImage = async (req: Request, res: Response) => {
   try {
     await sharpResize(f, h, w);
     const outputfile = `${f}${w}x${h}.jpg`;
-    const responseHTML = `<img src=/${outputfile}>`
-    res.format({
-      'text/html': function () {
-        res.send(responseHTML)
+    const responseHTML = `<img src=/${outputfile}>`;
+    res.status(200).format({
+      "text/html": function () {
+        res.send(responseHTML);
       },
-    })
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 };
 
