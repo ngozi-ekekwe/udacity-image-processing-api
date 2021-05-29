@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 
 function logger(req:Request, res: Response, next:NextFunction) {
-  console.log('logger')
+  console.log('middlware logger')
   next()
 };
 

@@ -1,11 +1,10 @@
 import express, { Request, Response } from "express";
-import path from "path";
 import router from "./routes";
 import { logger, errorHandler, validateParams } from "./middleware";
 
 const app = express();
 
-app.use(express.static(path.join(__dirname + "public")));
+app.use(express.static("public"));
 
 app.use(logger);
 
