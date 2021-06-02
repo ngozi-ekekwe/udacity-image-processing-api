@@ -15,6 +15,8 @@ TypeScript
 
 Jasmine for testing
 
+Images are gotten from [Unsplash](https://unsplash.com/)
+
 
 ## API Format for resizing images
 
