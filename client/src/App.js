@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import "./index.css"
+import "./index.css";
 import {
   Container,
   Menu,
@@ -9,29 +9,28 @@ import {
   Form,
   Card,
   Segment,
-  Select
+  Select,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 function App() {
   const [activeItem, setActiveItem] = useState("thumbnails");
   const [formstate, setFormstate] = useState({
-    filename: '',
+    filename: "",
     width: 0,
-    height: 0
+    height: 0,
   });
-
 
   const [thumbnails, setThumnails] = useState([]);
 
   const countryOptions = [
-    { key: 'danceforme', value: 'danceforme', text: 'Dance For Me' },
-    { key: 'jake', value: 'jake', text: 'Jake' },
-    { key: 'chase', value: 'chase', text: 'Chase' },
-    { key: 'picturethis', value: 'picturethis', text: 'Picture This' },
-    { key: 'sonny', value: 'sonny', text: 'Sonny' },
-    { key: 'soda', value: 'soda', text: 'Soda' },
-  ]
+    { key: "danceforme", value: "danceforme", text: "Dance For Me" },
+    { key: "jake", value: "jake", text: "Jake" },
+    { key: "chase", value: "chase", text: "Chase" },
+    { key: "picturethis", value: "picturethis", text: "Picture This" },
+    { key: "sonny", value: "sonny", text: "Sonny" },
+    { key: "soda", value: "soda", text: "Soda" },
+  ];
 
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
@@ -55,7 +54,7 @@ function App() {
   };
 
   const resizeImageAPI = async () => {
-    const {filename, width, height} = formstate
+    const { filename, width, height } = formstate;
     const url = `http://localhost:3001/api/images?filename=${filename}&height=${width}&width=${height}`;
     const response = await fetch(url, {
       headers: {
@@ -63,18 +62,16 @@ function App() {
         "Content-Type": "application/json",
       },
     });
-    if(response.status === 200) {
+    if (response.status === 200) {
       window.location = "/";
     }
   };
 
   useEffect(displayThumbnails, []);
 
-
   const resizeImage = (e) => {
     e.preventDefault();
-    resizeImageAPI()
-
+    resizeImageAPI();
   };
 
   return (
@@ -96,57 +93,68 @@ function App() {
         <Container>
           {activeItem === "thumbnails" && (
             <Grid>
-              <Grid.Row columns='three'>
-              {thumbnails &&
-                thumbnails.map((tn, i) => {
-                  return (
-                    <Grid.Column key={i} style={{marginTop: "2rem"}}>
-                      <Card>
-                        <img src={tn} alt="" style={{paddingTop: "4rem"}} />
-                      </Card>
-                    </Grid.Column>
-                  );
-                })}
-            </Grid.Row>
+              <Grid.Row columns="three">
+                {thumbnails &&
+                  thumbnails.map((tn, i) => {
+                    return (
+                      <Grid.Column key={i} style={{ marginTop: "2rem" }}>
+                        <Card>
+                          <img src={tn} alt="" style={{ paddingTop: "4rem" }} />
+                        </Card>
+                      </Grid.Column>
+                    );
+                  })}
+              </Grid.Row>
             </Grid>
           )}
 
           {activeItem === "resizeImages" && (
             <Segment>
               <Form>
-              <Form.Field>
-                <label>File Name</label>
-                <Select placeholder='Select your country' options={countryOptions} onChange={(e, data) =>{
-                    setFormstate({
-                      ...formstate,
-                      filename: data.value,
-                     
-                    })
-                }} />
-              </Form.Field>
-              <Form.Field>
-                <label>Width</label>
-                <input placeholder="Width" type="number" onChange={(e) =>{
-                  setFormstate({
-                    ...formstate,
-                    width: e.target.value,
-                    
-                  })
-                }} />
-              </Form.Field>
+                <Form.Field>
+                  <label>File Name</label>
+                  <Select
+                    placeholder="Select your country"
+                    options={countryOptions}
+                    onChange={(e, data) => {
+                      setFormstate({
+                        ...formstate,
+                        filename: data.value,
+                      });
+                    }}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Width</label>
+                  <input
+                    placeholder="Width"
+                    type="number"
+                    onChange={(e) => {
+                      setFormstate({
+                        ...formstate,
+                        width: e.target.value,
+                      });
+                    }}
+                  />
+                </Form.Field>
 
-              <Form.Field>
-                <label>Height</label>
-                <input placeholder="Height" type="number" onChange={(e) =>{
-                  setFormstate({
-                    ...formstate,
-                    height: e.target.value
-                    
-                  })
-                }} />
-              </Form.Field>
-             
-              <Button type="submit" onClick={resizeImage}>Submit</Button>
+                <Form.Field>
+                  <label>Height</label>
+                  <input
+                    placeholder="Height"
+                    type="number"
+                    onChange={(e) => {
+                      setFormstate({
+                        ...formstate,
+                        height: e.target.value,
+                      });
+                    }}
+                  />
+                </Form.Field>
+
+                <Button type="submit" onClick={resizeImage}>
+                  Submit
+                </Button>
               </Form>
             </Segment>
           )}
