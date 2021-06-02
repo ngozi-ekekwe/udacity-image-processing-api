@@ -1,61 +1,75 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Menu,
-  Segment,
-  Header,
   Button,
   Checkbox,
   Form,
+  Card,
+  Segment,
+  Select
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 function App() {
   const [activeItem, setActiveItem] = useState("thumbnails");
+  const [formstate, setFormstate] = useState({
+    filename: '',
+    width: 0,
+    height: 0
+  });
+
+
+  const [thumbnails, setThumnails] = useState([]);
+
+  const countryOptions = [
+    { key: 'danceforme', value: 'danceforme', text: 'danceforme' },
+    { key: 'picturethis', value: 'picturethis', text: 'picturethis' },
+  ]
 
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
   };
 
-  const fetchAllThumbnails = () => {};
-
-  const uploadImages = () => {
-    return (
-      <Form>
-        <Form.Field>
-          <label>First Name</label>
-          <input placeholder="First Name" />
-        </Form.Field>
-        <Form.Field>
-          <label>Last Name</label>
-          <input placeholder="Last Name" />
-        </Form.Field>
-        <Form.Field>
-          <Checkbox label="I agree to the Terms and Conditions" />
-        </Form.Field>
-        <Button type="submit">Submit</Button>
-      </Form>
-    );
+  const fetchAllThumbnails = async () => {
+    const url = "http://localhost:3001/api/thumbnails";
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return await response.json();
   };
 
-  const resizeImages = () => {
-    return (
-      <Form>
-        <Form.Field>
-          <label>First Name</label>
-          <input placeholder="First Name" />
-        </Form.Field>
-        <Form.Field>
-          <label>Last Name</label>
-          <input placeholder="Last Name" />
-        </Form.Field>
-        <Form.Field>
-          <Checkbox label="I agree to the Terms and Conditions" />
-        </Form.Field>
-        <Button type="submit">Submit</Button>
-      </Form>
-    );
+  const displayThumbnails = () => {
+    fetchAllThumbnails().then((response) => {
+      setThumnails(response.thumbnails);
+    });
+  };
+
+  const resizeImageAPI = async () => {
+    const {filename, width, height} = formstate
+    const url = `http://localhost:3001/api/images?filename=${filename}&height=${width}&width=${height}`;
+    const response = await fetch(url, {
+      headers: {
+        method: "GET",
+        "Content-Type": "application/json",
+      },
+    });
+    if(response.status === 200) {
+      window.location = "/";
+    }
+  };
+
+  useEffect(displayThumbnails, []);
+
+
+  const resizeImage = (e) => {
+    e.preventDefault();
+    resizeImageAPI()
+
   };
 
   return (
@@ -72,19 +86,63 @@ function App() {
             active={activeItem === "resizeImages"}
             onClick={handleItemClick}
           />
-          <Menu.Item
-            name="upload"
-            active={activeItem === "upload"}
-            onClick={handleItemClick}
-          />
         </Menu>
 
-        <Container text>
-          {activeItem === "thumbnails" && <p>Thumnails</p>}
+        <Container>
+          {activeItem === "thumbnails" && (
+            <div>
+              {thumbnails &&
+                thumbnails.map((tn, i) => {
+                  return (
+                    <div key={i}>
+                      <Card>
+                        <img src={tn} alt="" />
+                      </Card>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
 
-          {activeItem === "resizeImages" && resizeImages()}
+          {activeItem === "resizeImages" && (
+            <Segment>
+              <Form>
+              <Form.Field>
+                <label>File Name</label>
+                <Select placeholder='Select your country' options={countryOptions} onChange={(e, data) =>{
+                    setFormstate({
+                      ...formstate,
+                      filename: data.value,
+                     
+                    })
+                }} />
+              </Form.Field>
+              <Form.Field>
+                <label>Width</label>
+                <input placeholder="Width" type="number" onChange={(e) =>{
+                  setFormstate({
+                    ...formstate,
+                    width: e.target.value,
+                    
+                  })
+                }} />
+              </Form.Field>
 
-          {activeItem === "upload" && uploadImages()}
+              <Form.Field>
+                <label>Height</label>
+                <input placeholder="Height" type="number" onChange={(e) =>{
+                  setFormstate({
+                    ...formstate,
+                    height: e.target.value
+                    
+                  })
+                }} />
+              </Form.Field>
+             
+              <Button type="submit" onClick={resizeImage}>Submit</Button>
+              </Form>
+            </Segment>
+          )}
         </Container>
       </div>
     </div>

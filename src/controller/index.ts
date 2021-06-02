@@ -1,3 +1,3 @@
-import resizeImage from "./imageProcessing";
+import resizeImage, { readThumbnailFullPaths } from "./imageProcessing";
 
-export { resizeImage };
+export { resizeImage, readThumbnailFullPaths };

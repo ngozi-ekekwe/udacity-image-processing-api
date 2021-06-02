@@ -3,7 +3,6 @@ import app from "../../app";
 
 const request = supertest(app);
 
-
 describe("Resize Controller Middleware", () => {
   it("should return an error is a parameter is missing", async (done) => {
     const response = await request.get("/api/images");

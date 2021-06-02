@@ -39,7 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.readThumbnailFullPaths = void 0;
 var sharpResize_1 = __importDefault(require("../utilities/sharpResize"));
+var fs_1 = __importDefault(require("fs"));
 var resizeImage = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, filename, height, width, h, w, f, outputfile, responseHTML_1, e_1;
     return __generator(this, function (_b) {
@@ -71,4 +73,15 @@ var resizeImage = function (req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
+var readThumbnailFullPaths = function (req, res) {
+    var directory = "public";
+    var data = fs_1.default.readdirSync(directory);
+    var thumbnails = data.map(function (d) {
+        return "http://localhost:3001/" + d;
+    });
+    res.status(200).send({
+        thumbnails: thumbnails,
+    });
+};
+exports.readThumbnailFullPaths = readThumbnailFullPaths;
 exports.default = resizeImage;

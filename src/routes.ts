@@ -1,8 +1,10 @@
 import express from "express";
-import { resizeImage } from "./controller";
+import { resizeImage, readThumbnailFullPaths } from "./controller";
+import { validateParams } from "./middleware";
 
 const router = express();
 
-router.get("/api/images", resizeImage);
+router.get("/api/images", validateParams, resizeImage);
+router.get("/api/thumbnails", readThumbnailFullPaths);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Response, Request } from "express";
 import sharpResize from "../utilities/sharpResize";
+import fs from "fs";
 
 const resizeImage = async (req: Request, res: Response): Promise<void> => {
   const { filename, height, width } = req.query;
@@ -20,6 +21,17 @@ const resizeImage = async (req: Request, res: Response): Promise<void> => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const readThumbnailFullPaths = (req: Request, res: Response): void => {
+  const directory = "public";
+  const data = fs.readdirSync(directory);
+  const thumbnails = data.map((d) => {
+    return `http://localhost:3001/${d}`;
+  });
+  res.status(200).send({
+    thumbnails,
+  });
 };
 
 export default resizeImage;
