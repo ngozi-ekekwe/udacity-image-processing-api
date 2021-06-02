@@ -1,10 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import "./index.css"
 import {
   Container,
   Menu,
   Button,
-  Checkbox,
+  Grid,
   Form,
   Card,
   Segment,
@@ -24,8 +25,12 @@ function App() {
   const [thumbnails, setThumnails] = useState([]);
 
   const countryOptions = [
-    { key: 'danceforme', value: 'danceforme', text: 'danceforme' },
-    { key: 'picturethis', value: 'picturethis', text: 'picturethis' },
+    { key: 'danceforme', value: 'danceforme', text: 'Dance For Me' },
+    { key: 'jake', value: 'jake', text: 'Jake' },
+    { key: 'chase', value: 'chase', text: 'Chase' },
+    { key: 'picturethis', value: 'picturethis', text: 'Picture This' },
+    { key: 'sonny', value: 'sonny', text: 'Sonny' },
+    { key: 'soda', value: 'soda', text: 'Soda' },
   ]
 
   const handleItemClick = (e, { name }) => {
@@ -90,18 +95,20 @@ function App() {
 
         <Container>
           {activeItem === "thumbnails" && (
-            <div>
+            <Grid>
+              <Grid.Row columns='three'>
               {thumbnails &&
                 thumbnails.map((tn, i) => {
                   return (
-                    <div key={i}>
+                    <Grid.Column key={i} style={{marginTop: "2rem"}}>
                       <Card>
-                        <img src={tn} alt="" />
+                        <img src={tn} alt="" style={{paddingTop: "4rem"}} />
                       </Card>
-                    </div>
+                    </Grid.Column>
                   );
                 })}
-            </div>
+            </Grid.Row>
+            </Grid>
           )}
 
           {activeItem === "resizeImages" && (

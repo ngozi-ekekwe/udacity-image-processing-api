@@ -5,19 +5,40 @@
 
 
 ## Overview
-Simple Node API for resizing images using [!Sharp](https://www.npmjs.com/package/sharp)
+Simple Node API for resizing images using [Sharp](https://www.npmjs.com/package/sharp)
+
+Semantic-ui as CSS Framework
+
+Express
+
+TypeScript
+
+Jasmine for testing
+
+
+## API Format for resizing images
+
+- /api/images?filename="danceforme"&width=400&height=400
+
+## Viewing all thumbnails
+
+- /api/thumbnails
 
 ## Requirements
 
-Node LTS VERSION
-
+Node 14.16.0
 
 ## How to start server
 
 ```
  - npm install 
  - npm start
+```
 
+
+## How to start client
+
+```
  cd client
  - npm install 
  - npm start
@@ -25,8 +46,18 @@ Node LTS VERSION
 
 
 ## Testing
-
 ```
  - npm run test
 
 ```
+
+
+## Liniting
+```
+ - npm run lint
+
+```
+
+## Improvements
+
+- Add more functionality to upload images to assests folder
