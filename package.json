@@ -1,7 +1,7 @@
 {
   "name": "image-processing-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Image Processing API",
   "main": "index.js",
   "scripts": {
     "test": "npm run build && npm run jasmine",
@@ -10,7 +10,7 @@
     "start": "nodemon",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "prettier": "prettier --config .prettierrc '*.ts' --write"
+    "prettier": "prettier --config .prettierrc './src/**/*.ts' --write"
   },
   "repository": {
     "type": "git",
