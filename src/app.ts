@@ -18,6 +18,14 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).send("Welcome to Image Processing API");
 });
 
+app.get("/health", (_req: Request, res: Response) => {
+  res.send({
+    uptime: process.uptime(),
+    message: "OK",
+    timestamp: Date.now(),
+  });
+});
+
 app.use(router);
 
 app.use(errorHandler);
