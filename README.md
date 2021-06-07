@@ -18,7 +18,7 @@ Images are gotten from [Unsplash](https://unsplash.com/)
 
 ## API Format for resizing images
 
-- /api/images?filename="danceforme"&width=400&height=400
+- /api/images?filename=danceforme&width=400&height=400
 
 ## Viewing all thumbnails
 
