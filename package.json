@@ -10,6 +10,7 @@
     "start": "nodemon",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
+    "int": "npm install && cd client && npm install",
     "prettier": "prettier --config .prettierrc './src/**/*.ts' --write"
   },
   "repository": {

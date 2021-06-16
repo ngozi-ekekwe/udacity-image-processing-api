@@ -20,7 +20,7 @@ Images are gotten from [Unsplash](https://unsplash.com/)
 
 - /api/images?filename=danceforme&width=400&height=400
 
-## Viewing all thumbnails
+## View all thumbnails
 
 - /api/thumbnails
 
@@ -43,6 +43,12 @@ Node 14.16.0
  - npm start
 ```
 
+## Install Server and Client dependencies
+
+```
+  - npm run int
+```
+
 On the client, you can view all thumbnails but clicking on the "Thumbnails" tab and you can resize and image by clicking on the "Generate Thumbnails" tab
 
 ### Testing
@@ -53,6 +59,12 @@ On the client, you can view all thumbnails but clicking on the "Thumbnails" tab 
 ```
 
 ### Linting
+
+NOTE: Before running this script ensure dependency for both client and server have been installed by running the command below:
+
+```
+  - npm run int
+```
 
 ```
  - npm run lint
