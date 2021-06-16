@@ -12,6 +12,8 @@ import {
   Select,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { SemanticToastContainer, toast } from "react-semantic-toasts";
+import "react-semantic-toasts/styles/react-semantic-alert.css";
 
 function App() {
   const [activeItem, setActiveItem] = useState("thumbnails");
@@ -64,6 +66,13 @@ function App() {
     });
     if (response.status === 200) {
       window.location = "/";
+    } else {
+      toast({
+        title: "Error",
+        type: "error",
+        icon: "envelope",
+        description: <p>Processed image is too large for the JPEG format</p>,
+      });
     }
   };
 
@@ -76,6 +85,7 @@ function App() {
 
   return (
     <div className="App">
+      <SemanticToastContainer />
       <div>
         <Menu>
           <Menu.Item
@@ -84,8 +94,8 @@ function App() {
             onClick={handleItemClick}
           />
           <Menu.Item
-            name="resizeImages"
-            active={activeItem === "resizeImages"}
+            name="generateThumbnails"
+            active={activeItem === "generateThumbnails"}
             onClick={handleItemClick}
           />
         </Menu>
@@ -108,7 +118,7 @@ function App() {
             </Grid>
           )}
 
-          {activeItem === "resizeImages" && (
+          {activeItem === "generateThumbnails" && (
             <Segment>
               <Form>
                 <Form.Field>
@@ -153,7 +163,7 @@ function App() {
                 </Form.Field>
 
                 <Button type="submit" onClick={resizeImage}>
-                  Submit
+                  Resize Image
                 </Button>
               </Form>
             </Segment>

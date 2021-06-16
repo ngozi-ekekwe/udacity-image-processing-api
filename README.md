@@ -43,6 +43,8 @@ Node 14.16.0
  - npm start
 ```
 
+On the client, you can view all thumbnails but clicking on the "Thumbnails" tab and you can resize and image by clicking on the "Generate Thumbnails" tab
+
 ## Testing
 
 ```
@@ -57,6 +59,14 @@ Node 14.16.0
 
 ```
 
+## Prettier
+
+```
+ - npm run prettier
+
+```
+
 ## Improvements
 
-- Add more functionality to upload images to assests folder
+- Add functionality to upload images to assests folder
+- Add CI/CD
