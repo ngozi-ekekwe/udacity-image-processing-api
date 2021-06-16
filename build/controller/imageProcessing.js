@@ -58,6 +58,7 @@ var resizeImage = function (req, res) { return __awaiter(void 0, void 0, void 0,
             case 2:
                 _b.sent();
                 outputfile = "" + f + w + "x" + h + ".jpg";
+                console.log(outputfile, "outputfile");
                 responseHTML_1 = "<img src=/" + outputfile + ">";
                 res.status(200).format({
                     "text/html": function () {
@@ -67,7 +68,7 @@ var resizeImage = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 return [3 /*break*/, 4];
             case 3:
                 e_1 = _b.sent();
-                console.log(e_1);
+                console.log(e_1, 'tis is e');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

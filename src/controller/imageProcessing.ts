@@ -1,6 +1,8 @@
-import { Response, Request } from "express";
-import sharpResize from "../utilities/sharpResize";
 import fs from "fs";
+import path from "path";
+import { Response, Request } from "express";
+
+import { sharpResize, fileExisits, responseHandler } from "../utilities";
 
 const resizeImage = async (req: Request, res: Response): Promise<void> => {
   const { filename, height, width } = req.query;
@@ -10,14 +12,24 @@ const resizeImage = async (req: Request, res: Response): Promise<void> => {
   const f: string = filename as unknown as string;
 
   try {
-    await sharpResize(f, h, w);
-    const outputfile = `${f}${w}x${h}.jpg`;
-    const responseHTML = `<img src=/${outputfile}>`;
-    res.status(200).format({
-      "text/html": function () {
-        res.send(responseHTML);
-      },
-    });
+    const imagePath = `${f}${w}x${h}.jpg`;
+    const resizePath = `./public/${f}${w}x${h}.jpg`;
+    const imagePathExists = await fileExisits(path.join("public", imagePath));
+    if (imagePathExists) {
+      res.sendFile(`/${imagePath}`, { root:(path.join('./public')) });
+    } else {
+      const response = await sharpResize(f, h, w);
+      response.toFile(resizePath, (error: any, _info: any) => {
+        if (error) {
+          res.status(403).send({
+            status: "failed",
+            message: error.message,
+          });
+        } else {
+          res.sendFile(`/${imagePath}`, { root:(path.join('./public')) });
+        }
+      });
+    }
   } catch (e) {
     console.log(e);
   }
