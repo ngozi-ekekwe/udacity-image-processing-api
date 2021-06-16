@@ -2,7 +2,7 @@
 
 <img width="1680" alt="Screenshot 2021-06-02 at 14 15 07" src="https://user-images.githubusercontent.com/11598255/120478616-56ec0900-c3ad-11eb-80d4-97ea7c189de1.png">
 
-## Overview
+## Overview / Tools
 
 Simple Node API for resizing images using [Sharp](https://www.npmjs.com/package/sharp)
 
@@ -28,7 +28,7 @@ Images are gotten from [Unsplash](https://unsplash.com/)
 
 Node 14.16.0
 
-## How to start server
+### How to start server
 
 ```
  - npm install
@@ -38,35 +38,35 @@ Node 14.16.0
 ## How to start client
 
 ```
- cd client
+ - cd client
  - npm install
  - npm start
 ```
 
 On the client, you can view all thumbnails but clicking on the "Thumbnails" tab and you can resize and image by clicking on the "Generate Thumbnails" tab
 
-## Testing
+### Testing
 
 ```
  - npm run test
 
 ```
 
-## Linting
+### Linting
 
 ```
  - npm run lint
 
 ```
 
-## Prettier
+### Prettier
 
 ```
  - npm run prettier
 
 ```
 
-## Improvements
+### Improvements
 
 - Add functionality to upload images to assests folder
 - Add CI/CD
