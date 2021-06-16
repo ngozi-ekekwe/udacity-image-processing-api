@@ -95,19 +95,6 @@ describe("Resize Controller Middleware", function () {
             }
         });
     }); });
-    it("should resize a full image into the public folder", function (done) { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/api/images?filename=danceforme&width=400&height=300")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(200);
-                    done();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
     it("should return a message if image does not exist", function (done) { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {

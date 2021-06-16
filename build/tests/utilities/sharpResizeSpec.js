@@ -51,32 +51,39 @@ describe("Sharp", function () {
                 case 1:
                     response = _a.sent();
                     response.toFile(resizePath, function (err) {
-                        expect(err.message).toEqual('Input file is missing');
+                        expect(err.message).toEqual("Input file is missing");
                     });
                     done();
                     return [2 /*return*/];
             }
         });
     }); });
-    it('shoud create a resized image', function (done) { return __awaiter(void 0, void 0, void 0, function () {
-        var filename, height, width, imagePath, response, d;
+    it("shoud create a resized image", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var filename, height, width, testPath, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     filename = "danceforme";
-                    height = 100;
-                    width = 1000;
-                    imagePath = "./images/" + filename + width + "x" + height + ".jpg";
+                    height = 200;
+                    width = 500;
+                    testPath = "./src/tests/images/" + filename + width + "x" + height + ".jpg";
                     return [4 /*yield*/, utilities_1.sharpResize(filename, height, width)];
                 case 1:
                     response = _a.sent();
-                    response.toFile(imagePath, function (err, info) {
-                        console.log(info, 'tis is ierror');
-                    });
-                    return [4 /*yield*/, utilities_1.fileExisits(imagePath)];
+                    return [4 /*yield*/, response.toFile(testPath, function () { return __awaiter(void 0, void 0, void 0, function () {
+                            var d;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, utilities_1.fileExisits(testPath)];
+                                    case 1:
+                                        d = _a.sent();
+                                        expect(d).toEqual(true);
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); })];
                 case 2:
-                    d = _a.sent();
-                    expect(d).toEqual(true);
+                    _a.sent();
                     done();
                     return [2 /*return*/];
             }
