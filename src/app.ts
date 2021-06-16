@@ -14,12 +14,12 @@ app.use(cors());
 app.use(express.json({ type: "application/json" }));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (_req: Request, res: Response) => {
+app.get("/", (_req: Request, res: Response): void => {
   res.status(200).send("Welcome to Image Processing API");
 });
 
 // health check
-app.get("/health", (_req: Request, res: Response) => {
+app.get("/health", (_req: Request, res: Response): void => {
   res.send({
     uptime: process.uptime(),
     message: "OK",
