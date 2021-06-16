@@ -39,63 +39,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readThumbnailFullPaths = void 0;
-var fs_1 = __importDefault(require("fs"));
-var path_1 = __importDefault(require("path"));
-var utilities_1 = require("../utilities");
-var resizeImage = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, filename, height, width, h, w, f, imagePath_1, resizePath, imagePathExists, response, e_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.query, filename = _a.filename, height = _a.height, width = _a.width;
-                h = height ? parseInt(height, 10) : null;
-                w = width ? parseInt(width, 10) : null;
-                f = filename;
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 6, , 7]);
-                imagePath_1 = "" + f + w + "x" + h + ".jpg";
-                resizePath = "./public/" + f + w + "x" + h + ".jpg";
-                return [4 /*yield*/, utilities_1.fileExisits(path_1.default.join("public", imagePath_1))];
-            case 2:
-                imagePathExists = _b.sent();
-                if (!imagePathExists) return [3 /*break*/, 3];
-                res.sendFile("/" + imagePath_1, { root: path_1.default.join("./public") });
-                return [3 /*break*/, 5];
-            case 3: return [4 /*yield*/, utilities_1.sharpResize(f, h, w)];
-            case 4:
-                response = _b.sent();
-                response.toFile(resizePath, function (error) {
-                    if (error) {
-                        res.status(403).send({
-                            ok: "failed",
-                            message: error.message,
-                        });
-                    }
-                    else {
-                        res.sendFile("/" + imagePath_1, { root: path_1.default.join("./public") });
-                    }
-                });
-                _b.label = 5;
-            case 5: return [3 /*break*/, 7];
-            case 6:
-                e_1 = _b.sent();
-                console.log(e_1);
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
-        }
-    });
-}); };
-var readThumbnailFullPaths = function (req, res) {
-    var directory = "public";
-    var data = fs_1.default.readdirSync(directory);
-    var thumbnails = data.map(function (d) {
-        return "http://localhost:3001/" + d;
-    });
-    res.status(200).send({
-        thumbnails: thumbnails,
-    });
-};
-exports.readThumbnailFullPaths = readThumbnailFullPaths;
-exports.default = resizeImage;
+var sharpResize_1 = __importDefault(require("../../utilities/sharpResize"));
+describe("Sharp", function () {
+    it("should resize image given the right params", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var filename, height, width, response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    filename = "danceforme";
+                    height = 300;
+                    width = 300;
+                    return [4 /*yield*/, sharpResize_1.default(filename, height, width)];
+                case 1:
+                    response = _a.sent();
+                    console.log(response, "this is response");
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});

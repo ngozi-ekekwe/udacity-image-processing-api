@@ -18,6 +18,7 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).send("Welcome to Image Processing API");
 });
 
+// health check
 app.get("/health", (_req: Request, res: Response) => {
   res.send({
     uptime: process.uptime(),

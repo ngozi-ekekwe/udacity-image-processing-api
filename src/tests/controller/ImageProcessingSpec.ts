@@ -34,13 +34,21 @@ describe("Resize Controller Middleware", () => {
     done();
   });
 
-  describe("Resize Controller", () => {
-    it("should resize a full image into the public folder", async (done) => {
-      const response = await request.get(
-        "/api/images?filename=danceforme&width=400&height=300"
-      );
-      expect(response.status).toBe(200);
-      done();
-    });
+  it("should resize a full image into the public folder", async (done) => {
+    const response = await request.get(
+      "/api/images?filename=danceforme&width=400&height=300"
+    );
+    expect(response.status).toBe(200);
+    done();
+  });
+
+  it("should return a message if image does not exist", async (done) => {
+    const response = await request.get(
+      "/api/images?filename=filenotFound&width=400&height=300"
+    );
+    expect(response.status).toBe(403);
+    expect(response.body.ok).toBe("failed");
+    expect(response.body.message).toBe("Input file is missing");
+    done();
   });
 });

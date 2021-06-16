@@ -35,27 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sharpResize = void 0;
-var sharp_1 = __importDefault(require("sharp"));
-var sharpResize = function (f, h, w) { return __awaiter(void 0, void 0, void 0, function () {
-    var buffer, image, resizedimage;
+exports.fileExisits = void 0;
+var fs = require("fs");
+var fileExisits = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
+    var response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                buffer = "assets/full/" + f + ".jpg";
-                return [4 /*yield*/, sharp_1.default(buffer)];
+            case 0: return [4 /*yield*/, fs.existsSync(filePath)];
             case 1:
-                image = _a.sent();
-                return [4 /*yield*/, image.resize(w, h)];
-            case 2:
-                resizedimage = _a.sent();
-                return [2 /*return*/, resizedimage];
+                response = _a.sent();
+                return [2 /*return*/, response];
         }
     });
 }); };
-exports.sharpResize = sharpResize;
-exports.default = exports.sharpResize;
+exports.fileExisits = fileExisits;

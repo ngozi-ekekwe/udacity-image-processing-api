@@ -35,27 +35,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sharpResize = void 0;
-var sharp_1 = __importDefault(require("sharp"));
-var sharpResize = function (f, h, w) { return __awaiter(void 0, void 0, void 0, function () {
-    var buffer, image, resizedimage;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                buffer = "assets/full/" + f + ".jpg";
-                return [4 /*yield*/, sharp_1.default(buffer)];
-            case 1:
-                image = _a.sent();
-                return [4 /*yield*/, image.resize(w, h)];
-            case 2:
-                resizedimage = _a.sent();
-                return [2 /*return*/, resizedimage];
-        }
-    });
-}); };
-exports.sharpResize = sharpResize;
-exports.default = exports.sharpResize;
+var utilities_1 = require("../../utilities");
+describe("Sharp", function () {
+    it("should return an error message if file does not exist", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var filename, height, width, resizePath, response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    filename = "danceformee";
+                    height = 300;
+                    width = 300;
+                    resizePath = "./public/" + filename + width + "x" + height + ".jpg";
+                    return [4 /*yield*/, utilities_1.sharpResize(filename, height, width)];
+                case 1:
+                    response = _a.sent();
+                    response.toFile(resizePath, function (err) {
+                        expect(err.message).toEqual('Input file is missing');
+                    });
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('shoud create a resized image', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        var filename, height, width, imagePath, response, d;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    filename = "danceforme";
+                    height = 100;
+                    width = 1000;
+                    imagePath = "./images/" + filename + width + "x" + height + ".jpg";
+                    return [4 /*yield*/, utilities_1.sharpResize(filename, height, width)];
+                case 1:
+                    response = _a.sent();
+                    response.toFile(imagePath, function (err, info) {
+                        console.log(info, 'tis is ierror');
+                    });
+                    return [4 /*yield*/, utilities_1.fileExisits(imagePath)];
+                case 2:
+                    d = _a.sent();
+                    expect(d).toEqual(true);
+                    done();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});

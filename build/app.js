@@ -16,6 +16,7 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.get("/", function (_req, res) {
     res.status(200).send("Welcome to Image Processing API");
 });
+// health check
 app.get("/health", function (_req, res) {
     res.send({
         uptime: process.uptime(),
