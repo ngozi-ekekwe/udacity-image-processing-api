@@ -52,7 +52,7 @@ On the client, you can view all thumbnails but clicking on the "Thumbnails" tab 
 
 ```
 
-## Liniting
+## Linting
 
 ```
  - npm run lint
